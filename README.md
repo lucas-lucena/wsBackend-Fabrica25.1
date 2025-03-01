@@ -2,16 +2,27 @@
 Desafio Backend da Fábrica de Software Unipe 2025.1
 
 ## Sobre o App
-Semelhante ao renomado site Rotten Tomatoes, o aplicativo poderá consultar filimes pelo título assim o usuário poderá ver informações da obra
+Semelhante ao renomado site Rotten Tomatoes, o aplicativo poderá consultar filimes pelo título por uma API. Assim o usuário poderá ver informações sobre a obra.
+Também é possível fazer operações de CRUD (Create, read, update and delete) com os Filmes, desde que ele exista na API externa.
+Além disso, o usuário pode até fazer uma review com nota, contanto que o filme já esteja registrado em nossa API, e operações CRUD consequentemente.
 
-## Documentações adicionais
+## Sobre o desenvolvimento
+O projeto foi desenvolvido inteiramente em ambiente **linux** usando a distribuição **NixOS**, todas as ferramentas utilizadas no projeto foram declaradas no arquivo de configurações em `/etc/nixos/` e devidamente instaladas (*firefox, git, vscode, python, docker, docker-compose, vim, neovim*) feitas essa semana.
+
+Fora a IDE **(vscode)** e o navegador **(firefox)**, nenhuma outra interface gráfica foi utilizada (*github desktop, postman, etc*) comandos do **git** foram rodados no **terminal** e inclusive o **neovim** foi utilizado como editor de texto algumas vezes para pequenas edições. Os testes da API foram feitos manualmente na própria interface fornecida pelo próprio **Django Rest Framework**.
+
+No momento em que se inciou o desenvolvimento do desafio, eu tinha uma boa noção de *python, git, estrutura de projeto, POO*. Alguma noção de *django e rest api*. Porem nenhuma noção de *docker, docker-compose, postgres, autentificação e templates*.
+Estudei os materiais que tinha a disposição, procurei nas documentações, questionei as IAs (*ChatGPT, Copilot*) para entender melhor como fazer os requisitos extras, consegui realizar a parte do banco de dados externo e do docker-compose, mas ficou faltando autentificação e uso de templates, fica como aprendizado para o futuro.
+
+## Documentações
+- [Git](https://git-scm.com/doc)
 - [Python](https://www.python.org/doc/)
 - [Django](https://docs.djangoproject.com) 
 - [Django REST Framework](https://www.django-rest-framework.org/)
 - [Docker](https://docs.docker.com/reference/cli/docker/)
+- [PostgreSQL](https://www.postgresql.org/docs/)
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white) ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white) ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black) ![NixOS](https://img.shields.io/badge/NIXOS-5277C3.svg?style=for-the-badge&logo=NixOS&logoColor=white) ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) ![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) ![Neovim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white)
 ## API externa
     
 - [OMDb API The Open Movie Database](http://www.omdbapi.com/)
@@ -43,6 +54,8 @@ O projeto está organizado da seguinte forma:
     │   ├── tests.py
     │   ├── utils.py
     │   ├── views.py
+    ├── docker-compose.yml
+    ├── dockerfile
     ├── manage.py
     ├── project_rotten_potatoes/
     │   ├── __init__.py
@@ -62,6 +75,8 @@ O projeto está organizado da seguinte forma:
 - Python 3.11
 - Django 5.1.6
 - Django REST framework 3.15.2
+- Requests 2.32.3
+- psycopg2 2.9.3
 
 ## Instalação
 
@@ -80,6 +95,11 @@ source venv/bin/activate  # No Windows use `venv\Scripts\activate`
 Instale as dependências:
 ```sh
 pip install -r requirements.txt
+```
+
+Provavelmente será necessário executar makemigrations:
+```sh
+python manage.py makemigrations
 ```
 
 Execute as migrações:
@@ -118,3 +138,24 @@ Para construir e rodar o projeto utilizando Docker, execute os seguintes comando
 sudo docker build -t app_rotten_potatoes .
 sudo docker run -d -p 8000:8000 app_rotten_potatoes
 ```
+
+## Docker Compose
+
+Para construir e rodar o projeto utilizando Docker-compose e com integração ao PostgreSQL, execute os seguintes comandos:
+
+```sh
+    sudo docker-compose run web python manage.py migrate
+    sudo docker-compose up
+```
+
+### Material Auxiliar
+- [Linux Commands Cheat Sheet](https://www.geeksforgeeks.org/linux-commands-cheat-sheet/)
+- [Materiais de aula e estudo do workshop](https://github.com/beaalmeidas/WorkshopFabrica25.1)
+- [Repositório proprio com instruções sobre git](https://github.com/lucas-lucena/hello-git)
+- [Estrutura Básica de um Projeto em Django ](https://youtu.be/4u0aI-90KnU)
+- [Django Rest Framework for Beginners - Simple CRUD API ](https://youtu.be/OJdFj5hPAKs)
+- [Setting up PostgreSQL database with a Django Docker application](https://youtu.be/610jg8bK0I8)
+- [Padrões de commits 📜](https://github.com/iuricode/padroes-de-commits)
+- [Markdown Badges](https://github.com/Ileriayo/markdown-badges)
+- [NixOS packages search](https://search.nixos.org/packages)
+- [NixOS Manual](https://nixos.org/manual/nixos/stable/)
