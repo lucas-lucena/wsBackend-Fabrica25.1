@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_rotten_potatoes'
+    'app_rotten_potatoes',
     'rest_framework'
 ]
 
