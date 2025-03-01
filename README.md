@@ -79,7 +79,7 @@ O projeto está organizado da seguinte forma:
 - Django 5.1.6
 - Django REST framework 3.15.2
 - Requests 2.32.3
-- psycopg2 2.9.3
+- psycopg 3.2.5
 
 ## Instalação
 
