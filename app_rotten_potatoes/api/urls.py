@@ -1,6 +1,5 @@
-from django.urls import path, include
+from django.urls import path
 from .viewsets import MovieViewSet, ReviewViewSet
-from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     path('movies/', MovieViewSet.as_view({
