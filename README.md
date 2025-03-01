@@ -1,3 +1,6 @@
+<!-- Esse markdown não foi automaticamente gerado por IA  -->
+<!-- É fruto de estilização humana -->
+
 # Rotten Potatoes 🍠
 Desafio Backend da Fábrica de Software Unipe 2025.1
 
@@ -97,6 +100,53 @@ Instale as dependências:
 pip install -r requirements.txt
 ```
 
+## Docker Compose
+
+Para construir e rodar o projeto utilizando Docker-compose e com integração ao PostgreSQL, execute os seguintes comandos:
+
+```sh
+    sudo docker-compose run web python manage.py makemigrations
+    sudo docker-compose run web python manage.py migrate
+    sudo docker-compose up
+```
+
+## Endpoints
+
+### Filmes
+
+- `GET /api/movies/`: Lista todos os filmes.
+- `GET /api/movies?title=<title>` Busca filme pelo titulo na OMDb API
+- `POST /api/movies/create/`: Cria um novo filme.
+- `GET /api/movies/<id>/`: Recupera um filme específico.
+- `PUT /api/movies/<id>/update/`: Atualiza um filme específico.
+- `DELETE /api/movies/<id>/delete/`: Deleta um filme específico.
+
+### Reviews
+
+- `GET /api/reviews/`: Lista todas as reviews.
+- `GET /api/reviews?movie=<id>`: Lista todas as reviews de um filme pelo seu ID
+- `POST /api/reviews/create/`: Cria uma nova review.
+- `GET /api/reviews/<id>/`: Recupera uma review específica.
+- `PUT /api/reviews/<id>/update/`: Atualiza uma review específica.
+- `DELETE /api/reviews/<id>/delete/`: Deleta uma review específica.
+
+## Rodando o Server com Metodos Legado
+
+Devido alterações em `project_rotten_potatoes/settings.py` as formas de fazer rodar o servidor feitas posteriormente so funcionam se alterarmos o banco de dados de postgres para db.sqlite3 novamente
+
+Em `settings.py` faça a seguinte alteração em DATABASES
+```py 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+```
+A alteração já vai estar comentada, só é preciso retirar o comentário e comentar a outra opção de DATABASES.
+
+### Localmente (Legado)
+
 Provavelmente será necessário executar makemigrations:
 ```sh
 python manage.py makemigrations
@@ -112,40 +162,13 @@ Inicie o servidor de desenvolvimento:
 python manage.py runserver
 ```
 
-## Endpoints
-
-### Filmes
-
-- `GET /api/movies/`: Lista todos os filmes.
-- `POST /api/movies/create/`: Cria um novo filme.
-- `GET /api/movies/<id>/`: Recupera um filme específico.
-- `PUT /api/movies/<id>/update/`: Atualiza um filme específico.
-- `DELETE /api/movies/<id>/delete/`: Deleta um filme específico.
-
-### Reviews
-
-- `GET /api/reviews/`: Lista todas as reviews.
-- `POST /api/reviews/create/`: Cria uma nova review.
-- `GET /api/reviews/<id>/`: Recupera uma review específica.
-- `PUT /api/reviews/<id>/update/`: Atualiza uma review específica.
-- `DELETE /api/reviews/<id>/delete/`: Deleta uma review específica.
-
-## Docker
+### Docker (Legado)
 
 Para construir e rodar o projeto utilizando Docker, execute os seguintes comandos:
 
 ```sh
 sudo docker build -t app_rotten_potatoes .
 sudo docker run -d -p 8000:8000 app_rotten_potatoes
-```
-
-## Docker Compose
-
-Para construir e rodar o projeto utilizando Docker-compose e com integração ao PostgreSQL, execute os seguintes comandos:
-
-```sh
-    sudo docker-compose run web python manage.py migrate
-    sudo docker-compose up
 ```
 
 ### Material Auxiliar
@@ -159,3 +182,4 @@ Para construir e rodar o projeto utilizando Docker-compose e com integração ao
 - [Markdown Badges](https://github.com/Ileriayo/markdown-badges)
 - [NixOS packages search](https://search.nixos.org/packages)
 - [NixOS Manual](https://nixos.org/manual/nixos/stable/)
+
